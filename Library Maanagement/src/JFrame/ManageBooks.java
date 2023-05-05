@@ -110,6 +110,35 @@ public void setBookDetailsToTable(){
     }
     return isUpdated;
     }
+    
+//    delete book details
+    public boolean deleteBook()
+    {
+        boolean isdeleted=false;
+        book_id=Integer.parseInt(txt_bookid.getText());
+        try {
+            Connection con=DBConnection.getConnection();
+            String sql="delete from book_details where book_id=?";
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setInt(1,book_id);
+            
+            int rowCount=pst.executeUpdate();
+            if(rowCount>0){
+                isdeleted=true;
+            }
+            else{
+                isdeleted=false;
+            }
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return isdeleted;
+        
+        
+    }
+    
 //    clear table
     public void clearTable(){
     DefaultTableModel model=(DefaultTableModel)tbl_bookdetails.getModel();
@@ -287,6 +316,11 @@ public void setBookDetailsToTable(){
 
         rSMaterialButtonCircle1.setBackground(new java.awt.Color(255, 51, 51));
         rSMaterialButtonCircle1.setText("DELETE");
+        rSMaterialButtonCircle1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rSMaterialButtonCircle1MouseClicked(evt);
+            }
+        });
         rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSMaterialButtonCircle1ActionPerformed(evt);
@@ -343,9 +377,9 @@ public void setBookDetailsToTable(){
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel2)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +388,7 @@ public void setBookDetailsToTable(){
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, 120, 51));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 120, 51));
 
         tbl_bookdetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -449,9 +483,7 @@ dispose();
     }//GEN-LAST:event_txt_bookidActionPerformed
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-        if(ValidateLogin()){
-            Login();
-        }
+        deleteBook();
         // TODO add your handling code here:
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 
@@ -493,8 +525,20 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_tbl_bookdetailsMouseClicked
 
     private void rSMaterialButtonCircle3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle3MouseClicked
+        if(deleteBook()==true){
+        JOptionPane.showMessageDialog(this,"Book delete");
+        clearTable();
+        setBookDetailsToTable();
         
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Book deleted");
+        }
     }//GEN-LAST:event_rSMaterialButtonCircle3MouseClicked
+
+    private void rSMaterialButtonCircle1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSMaterialButtonCircle1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -558,4 +602,8 @@ System.exit(0);        // TODO add your handling code here:
     private app.bolivia.swing.JCTextField txt_bookname;
     private app.bolivia.swing.JCTextField txt_quantity;
     // End of variables declaration//GEN-END:variables
+
+    private boolean ValidateLogin() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

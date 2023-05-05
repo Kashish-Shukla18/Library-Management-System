@@ -307,7 +307,7 @@ public class Signup extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, -50, 570, 960));
 
-        setSize(new java.awt.Dimension(1523, 828));
+        setSize(new java.awt.Dimension(1535, 828));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
